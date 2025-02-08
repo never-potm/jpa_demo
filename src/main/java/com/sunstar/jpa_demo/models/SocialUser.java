@@ -3,7 +3,9 @@ package com.sunstar.jpa_demo.models;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class SocialUser {
@@ -22,4 +24,13 @@ public class SocialUser {
 	@OneToMany(mappedBy = "socialUser") // using this mappedBy, we are telling that Post class manages the socialUser
 	// defined in Post class
 	private List<Post> posts = new ArrayList<>();
+
+	@ManyToMany
+	@JoinTable(
+			name = "user_group", // name of table
+			joinColumns = @JoinColumn(name = "user_id"), // foreign key of SocialUser is user_id
+			inverseJoinColumns = @JoinColumn(name = "group_id") // foreign key for other side of relationship ( Group
+			// table ) is group_id
+	)
+	private Set<SocialGroup> groups = new HashSet<>();
 }
