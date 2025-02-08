@@ -8,7 +8,10 @@ public class SocialProfile {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@OneToOne
-	@JoinColumn(name = "social_user") // social_user will be the name of foreign key
+	// this is the non owning side of the relationship which is supposed to use mappedBy to tell that this
+	// relationship is mappedBy socialProfile which exists in SocialUser class.
+	// So, dont create a column in this table
+	@OneToOne(mappedBy = "socialProfile")
+	//@JoinColumn(name = "social_user")
 	private SocialUser user;
 }
