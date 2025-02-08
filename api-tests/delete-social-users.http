@@ -1,2 +1,2 @@
 ### Send POST request with json body
-DELETE http://localhost:8080/social/users/1
+DELETE http://localhost:8080/social/users/4

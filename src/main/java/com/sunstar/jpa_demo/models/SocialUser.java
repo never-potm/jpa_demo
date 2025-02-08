@@ -23,12 +23,11 @@ public class SocialUser {
 	// this is the non owning side of the relationship which is supposed to use mappedBy to tell that this
 	// relationship is mappedBy socialProfile which exists in SocialUser class.
 	// So, dont create a column in this table
-	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true) // this creates a foreign-key in social_user table
-	// named
-	// social_profile_id
+	@OneToOne(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}) // this creates a foreign-key in
+	// social_user table named social_profile_id
 	private SocialProfile socialProfile;
 
-	@OneToMany(mappedBy = "socialUser", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "socialUser", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private List<Post> posts = new ArrayList<>();
 
 	@ManyToMany
