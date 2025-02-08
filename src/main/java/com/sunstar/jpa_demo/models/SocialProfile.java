@@ -1,5 +1,6 @@
 package com.sunstar.jpa_demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,5 +17,6 @@ public class SocialProfile {
 
 	@OneToOne
 	@JoinColumn(name = "social_user_id") // JoinColumn is used in the owning side of the relationship
+	@JsonIgnore
 	private SocialUser user;
 }

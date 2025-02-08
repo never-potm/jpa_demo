@@ -1,5 +1,6 @@
 package com.sunstar.jpa_demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,6 +19,7 @@ public class SocialGroup {
 	private Long id;
 
 	@ManyToMany(mappedBy = "groups")
+	@JsonIgnore
 	private Set<SocialUser> socialUsers = new HashSet<>();
 
 	@Override

@@ -1,5 +1,6 @@
 package com.sunstar.jpa_demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
@@ -22,12 +23,9 @@ public class SocialUser {
 	// relationship is mappedBy socialProfile which exists in SocialUser class.
 	// So, dont create a column in this table
 	@OneToOne(mappedBy = "user") // this creates a foreign-key in social_user table named social_profile_id
-	//	@JoinColumn(name = "social_profile_id")
 	private SocialProfile socialProfile;
 
 	@OneToMany(mappedBy = "socialUser")
-	@ToString.Exclude // using this mappedBy, we are telling that Post class manages the socialUser
-	// defined in Post class
 	private List<Post> posts = new ArrayList<>();
 
 	@ManyToMany
