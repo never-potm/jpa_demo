@@ -1,7 +1,9 @@
-### Send POST request with json body
-POST http://localhost:8080/social/
+### Send POST request with json body to create user and profile
+POST http://localhost:8080/social/users
 Content-Type: application/json
 
 {
-
+  "socialProfile": {
+    "description": "test description"
+  }
 }

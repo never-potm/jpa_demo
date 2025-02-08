@@ -19,4 +19,13 @@ public class SocialProfile {
 	@JoinColumn(name = "social_user_id") // JoinColumn is used in the owning side of the relationship
 	@JsonIgnore
 	private SocialUser user;
+
+	private String description;
+
+	public void setSocialUser(SocialUser user) {
+		this.user = user;
+		if (user.getSocialProfile() != null) {
+			user.setSocialProfile(this);
+		}
+	}
 }

@@ -1,9 +1,10 @@
 package com.sunstar.jpa_demo.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.*;
-import org.hibernate.proxy.HibernateProxy;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.*;
 
@@ -22,7 +23,8 @@ public class SocialUser {
 	// this is the non owning side of the relationship which is supposed to use mappedBy to tell that this
 	// relationship is mappedBy socialProfile which exists in SocialUser class.
 	// So, dont create a column in this table
-	@OneToOne(mappedBy = "user") // this creates a foreign-key in social_user table named social_profile_id
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL) // this creates a foreign-key in social_user table named
+	// social_profile_id
 	private SocialProfile socialProfile;
 
 	@OneToMany(mappedBy = "socialUser")
@@ -40,5 +42,11 @@ public class SocialUser {
 	@Override
 	public final int hashCode() {
 		return Objects.hash(id);
+	}
+
+	// this method is used for maintaining the consistency on both sides of the bi-directional sides of the memory.
+	public void setSocialProfile(SocialProfile socialProfile) {
+		socialProfile.setUser(this);
+		this.socialProfile = socialProfile;
 	}
 }
