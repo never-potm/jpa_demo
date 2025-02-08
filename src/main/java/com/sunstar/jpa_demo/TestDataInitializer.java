@@ -15,10 +15,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class TestDataInitializer {
 
-	private final SocialUserRepository socialUserRepository;
-	private final SocialGroupRepository socialGroupRepository;
+	private final SocialUserRepository    socialUserRepository;
+	private final SocialGroupRepository   socialGroupRepository;
 	private final SocialProfileRepository socialProfileRepository;
-	private final PostRepository postRepository;
+	private final PostRepository          postRepository;
 
 	public TestDataInitializer(SocialUserRepository socialUserRepository, SocialGroupRepository socialGroupRepository,
 	                           SocialProfileRepository socialProfileRepository, PostRepository postRepository) {
@@ -87,6 +87,10 @@ public class TestDataInitializer {
 			socialProfileRepository.save(profile1);
 			socialProfileRepository.save(profile2);
 			socialProfileRepository.save(profile3);
+
+			// fetch-types
+			System.out.println("FETCHING SOCIAL USER");
+			socialUserRepository.findById(1L);
 
 		};
 	}

@@ -30,7 +30,7 @@ public class SocialUser {
 	@OneToMany(mappedBy = "socialUser", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private List<Post> posts = new ArrayList<>();
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "user_group", // name of table
 			joinColumns = @JoinColumn(name = "user_id"), // foreign key of SocialUser is user_id
