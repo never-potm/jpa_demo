@@ -1,17 +1,20 @@
 package com.sunstar.jpa_demo.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class SocialProfile {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	// this is the non owning side of the relationship which is supposed to use mappedBy to tell that this
-	// relationship is mappedBy socialProfile which exists in SocialUser class.
-	// So, dont create a column in this table
-	@OneToOne(mappedBy = "socialProfile")
-	//@JoinColumn(name = "social_user")
+	@OneToOne
+	@JoinColumn(name = "social_user_id") // JoinColumn is used in the owning side of the relationship
 	private SocialUser user;
 }

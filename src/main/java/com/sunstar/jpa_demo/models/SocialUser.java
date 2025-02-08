@@ -1,13 +1,16 @@
 package com.sunstar.jpa_demo.models;
 
 import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.proxy.HibernateProxy;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class SocialUser {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,13 +18,15 @@ public class SocialUser {
 
 	// this makes SocialUser class aware of SocialProfile
 	// we can fetch profile information using the user
-	@OneToOne // this creates a foreign-key in social_user table named social_profile_id
-
-	// JoinColumn is used in the owning side of the relationship
-	@JoinColumn(name = "social_profile_id")
+	// this is the non owning side of the relationship which is supposed to use mappedBy to tell that this
+	// relationship is mappedBy socialProfile which exists in SocialUser class.
+	// So, dont create a column in this table
+	@OneToOne(mappedBy = "user") // this creates a foreign-key in social_user table named social_profile_id
+	//	@JoinColumn(name = "social_profile_id")
 	private SocialProfile socialProfile;
 
-	@OneToMany(mappedBy = "socialUser") // using this mappedBy, we are telling that Post class manages the socialUser
+	@OneToMany(mappedBy = "socialUser")
+	@ToString.Exclude // using this mappedBy, we are telling that Post class manages the socialUser
 	// defined in Post class
 	private List<Post> posts = new ArrayList<>();
 
@@ -33,4 +38,9 @@ public class SocialUser {
 			// table ) is group_id
 	)
 	private Set<SocialGroup> groups = new HashSet<>();
+
+	@Override
+	public final int hashCode() {
+		return Objects.hash(id);
+	}
 }
